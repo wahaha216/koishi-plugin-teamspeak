@@ -333,7 +333,6 @@ export function apply(ctx: Context, config: Config) {
       replyLines.push(`==============================`);
       replyLines.push(session.text(".totalOnline", [totalRealPlayers]));
 
-      console.log(replyLines.join("\n"));
       return replyLines.join("\n");
     } else {
       await session.send([
@@ -342,8 +341,6 @@ export function apply(ctx: Context, config: Config) {
       ]);
     }
   });
-
-  ctx.command("ts-test").action(async ({ session }) => {});
 
   ctx.on("dispose", () => {
     destroy();
