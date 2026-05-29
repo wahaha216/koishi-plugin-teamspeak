@@ -1,7 +1,7 @@
 {
   "name": "@wahaha216/koishi-plugin-teamspeak",
   "description": "a teamspeak query plugin",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -9,14 +9,21 @@
     "dist"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wahaha216/koishi-plugin-teamspeak"
+  },
   "scripts": {},
   "keywords": [
     "chatbot",
     "koishi",
-    "plugin"
+    "plugin",
+    "teamspeak"
   ],
-  "devDependencies": {},
   "peerDependencies": {
     "koishi": "^4.18.0"
+  },
+  "dependencies": {
+    "@wahaha216/teamspeak.js": "^1.11.2-fixed.2"
   }
 }

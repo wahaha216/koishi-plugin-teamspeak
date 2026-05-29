@@ -1,0 +1,35 @@
+commands:
+  ts:
+    description: 获取 TeamSpeak 在线列表
+    messages:
+      noOne: 当前 TeamSpeak 服务器内没有人。
+      totalOnline: 当前共有 {0} 人。
+      noConnect: 无法连接至 Teamspeak 服务器。
+      canNotGetChannelName: "未能获取频道名称 (ID: ${0})"
+      inputMuted: "[闭麦]"
+      outputMuted: "[静音输出]"
+      recording: "[录音中]"
+      streaming: "[直播中]"
+      away: "[离开：{0}]"
+_config:
+  - $desc: 服务器配置
+    host: 服务器地址
+    port: 服务器端口
+    protocol: 连接协议
+    username: 用户名
+    password: 密码
+  - $desc: 重连配置
+    autoReconnect: 自动重连
+    retryCount: 重试次数
+  - $desc: 推送设置
+    push:
+      $desc: 推送的平台与频道
+      platform: 平台
+      channelId: 频道
+      enter: 推送进入
+      leave: 推送离开
+      move: 推送切换频道
+      message: 推送消息
+    simplifiedMode: 精简模式
+  - $desc: 开发者选项
+    debug: 调试模式，输出更多信息

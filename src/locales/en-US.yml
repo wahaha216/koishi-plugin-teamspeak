@@ -1,0 +1,35 @@
+commands:
+  ts:
+    description: Get TeamSpeak online list
+    messages:
+      noOne: No one is currently on the TeamSpeak server
+      totalOnline: There are currently 0 people
+      noConnect: Unable to connect to TeamSpeak server
+      canNotGetChannelName: "Failed To Retrieve Channel Name Id 0"
+      inputMuted: "[Mic Muted]"
+      outputMuted: "[Mute Output]"
+      recording: "[Recording]"
+      streaming: "[Streaming]"
+      away: "[away：{0}]"
+_config:
+  - $desc: Server Config
+    host: Server Address
+    port: Server Port
+    protocol: Protocol
+    username: Username
+    password: Password
+  - $desc: Reconnect Config
+    autoReconnect: Auto Reconnect
+    retryCount: Retry Count
+  - $desc: Push Notification Settings
+    push:
+      $desc: Push Platforms And Channels
+      platform: Platform
+      channelId: Channel
+      enter: Push Enter
+      leave: Push Leave
+      move: Push Move
+      message: Push Message
+    simplifiedMode: Simplified Mode
+  - $desc: Developer Options
+    debug: Enable Debug Verbose Logging
