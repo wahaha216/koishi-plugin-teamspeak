@@ -1,7 +1,7 @@
 {
   "name": "@wahaha216/koishi-plugin-teamspeak",
   "description": "a teamspeak query plugin",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -24,6 +24,19 @@
     "koishi": "^4.18.0"
   },
   "dependencies": {
-    "@wahaha216/teamspeak.js": "^1.11.2-fixed.2"
+    "@wahaha216/teamspeak.js": "^1.11.2-fixed.3"
+  },
+  "koishi": {
+    "description": {
+      "en": "Teamspeak Watchman Supports Ts6",
+      "zh": "Teamspeak 传达室老大爷，帮你盯着动静，支持TS6"
+    },
+    "service": {
+      "required": []
+    },
+    "locales": [
+      "en",
+      "zh"
+    ]
   }
 }

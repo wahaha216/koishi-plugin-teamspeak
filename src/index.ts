@@ -1,5 +1,5 @@
 import { Context, Element, h, Schema } from "koishi";
-import { Query, Events, Client } from "@wahaha216/teamspeak.js";
+import { Query, Events, Client, Channel } from "@wahaha216/teamspeak.js";
 
 export const name = "teamspeak";
 
@@ -123,27 +123,29 @@ export function apply(ctx: Context, config: Config) {
       logger.error(`[connect] 连接错误: ${err.message}`);
     });
     query.on("Close", async () => {
-      const reconnectTime = delays[retryAttempts] || 60000;
-      const reconnectMsg =
-        config.retryCount === 0
-          ? `第${retryAttempts + 1}次尝试`
-          : `${retryAttempts + 1}/${config.retryCount}`;
-      if (config.retryCount === 0 || retryAttempts < config.retryCount) {
-        logger.info(
-          `[connect] 连接已关闭，将在${reconnectTime / 1000}秒后尝试重连...${reconnectMsg}`,
-        );
-        if (timer) clearTimeout(timer);
-        timer = setTimeout(() => {
-          retryAttempts++;
-          connect();
-        }, reconnectTime);
-      } else {
-        logger.error("[connect] 重连失败，已达到最大重试次数！");
+      if (config.autoReconnect) {
+        const reconnectTime = delays[retryAttempts] || 60000;
+        const reconnectMsg =
+          config.retryCount === 0
+            ? `第${retryAttempts + 1}次尝试`
+            : `${retryAttempts + 1}/${config.retryCount}`;
+        if (config.retryCount === 0 || retryAttempts < config.retryCount) {
+          logger.info(
+            `[connect] 连接已关闭，将在${reconnectTime / 1000}秒后尝试重连...${reconnectMsg}`,
+          );
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(() => {
+            retryAttempts++;
+            connect();
+          }, reconnectTime);
+        } else {
+          logger.error("[connect] 重连失败，已达到最大重试次数！");
+        }
       }
       destroy();
     });
-    query.on(Events.ClientEnterView, async (client) => {
-      client.fetch();
+    query.on(Events.ClientEnterView, async (_client) => {
+      const client = await _client.fetch();
       if (config.debug) {
         logger.info("用户进入", {
           id: client.id,
@@ -168,6 +170,7 @@ export function apply(ctx: Context, config: Config) {
       );
     });
     query.on(Events.ClientLeaveView, async (client) => {
+      if (client.type === 1) return;
       if (config.debug) {
         logger.info("用户离开", {
           id: client.id,
@@ -184,10 +187,10 @@ export function apply(ctx: Context, config: Config) {
         "leave",
       );
     });
-    query.on(Events.ClientMove, async (client, o, n) => {
-      client.fetch();
-      await o.fetch();
-      await n.fetch();
+    query.on(Events.ClientMove, async (_client, _o, _n) => {
+      const client = await _client.fetch();
+      const o = await _o.fetch();
+      const n = await _n.fetch();
       if (config.debug) {
         logger.info("用户移动", {
           id: client.id,
@@ -199,7 +202,7 @@ export function apply(ctx: Context, config: Config) {
           description: client.description,
         });
 
-        const log = (msg: string, channel) => {
+        const log = (msg: string, channel: Channel) => {
           logger.info(msg, {
             id: channel.id,
             parentId: channel.parentId,
