@@ -325,8 +325,9 @@ export function apply(ctx: Context, config: Config) {
               if (client.isRecording) text += session.text(".recording");
               if (client.isStreaming) text += session.text(".streaming");
               if (client.away)
-                text += session.text(".away", [client.awayMessage]);
-
+                text += session.text(client.awayMessage ? ".afkMsg" : ".afk", [
+                  client.awayMessage,
+                ]);
               replyLines.push(`\t${text}`);
             }
           }

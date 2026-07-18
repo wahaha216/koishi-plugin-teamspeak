@@ -10,7 +10,8 @@ commands:
       outputMuted: "[Mute Output]"
       recording: "[Recording]"
       streaming: "[Streaming]"
-      away: "[away：{0}]"
+      afk: "[AFK]"
+      afkMsg: "[AFK: {0}]"
 _config:
   - $desc: Server Config
     host: Server Address

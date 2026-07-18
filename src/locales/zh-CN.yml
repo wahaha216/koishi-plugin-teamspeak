@@ -10,7 +10,8 @@ commands:
       outputMuted: "[静音输出]"
       recording: "[录音中]"
       streaming: "[直播中]"
-      away: "[离开：{0}]"
+      afk: "[离开]"
+      afkMsg: "[离开: {0}]"
 _config:
   - $desc: 服务器配置
     host: 服务器地址
